@@ -1,0 +1,12 @@
+D:\3A_study\12th\sln_12\A_Notepad\obj\Debug\A_Notepad.csproj.AssemblyReference.cache
+D:\3A_study\12th\sln_12\A_Notepad\obj\Debug\A_Notepad.csproj.SuggestedBindingRedirects.cache
+D:\3A_study\12th\sln_12\A_Notepad\obj\Debug\A_Notepad.Form1.resources
+D:\3A_study\12th\sln_12\A_Notepad\obj\Debug\A_Notepad.Form2.resources
+D:\3A_study\12th\sln_12\A_Notepad\obj\Debug\A_Notepad.Properties.Resources.resources
+D:\3A_study\12th\sln_12\A_Notepad\obj\Debug\A_Notepad.csproj.GenerateResource.cache
+D:\3A_study\12th\sln_12\A_Notepad\obj\Debug\A_Notepad.csproj.CoreCompileInputs.cache
+D:\3A_study\12th\sln_12\A_Notepad\bin\Debug\A_Notepad.exe.config
+D:\3A_study\12th\sln_12\A_Notepad\bin\Debug\A_Notepad.exe
+D:\3A_study\12th\sln_12\A_Notepad\bin\Debug\A_Notepad.pdb
+D:\3A_study\12th\sln_12\A_Notepad\obj\Debug\A_Notepad.exe
+D:\3A_study\12th\sln_12\A_Notepad\obj\Debug\A_Notepad.pdb
