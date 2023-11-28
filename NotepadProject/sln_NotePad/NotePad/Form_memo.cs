@@ -406,6 +406,21 @@ namespace NotePad
 
         private void btn_change_Click(object sender, EventArgs e) //바꾸기 폼의 '바꾸기' 버튼 핸들러
         {
+            var changeWord = frmC.txt_change.Text; //바꿀 문자열
+            var findWord = frmC.txt_find.Text; //찾을 문자열
+
+            btn_nxt_Click(this, null); //바꿀 부분 찾기
+
+            if (this.txtNote.SelectionLength != 0 && this.txtNote.SelectedText == findWord) //선택된 부분이 있으면(바꿀 부분이 있다면)
+            {
+                var startIndex = this.txtNote.SelectionStart; //선택된 부분 첫번째 인덱스
+
+                this.txtNote.SelectedText = ""; //선택된 텍스트 지우기
+
+                this.txtNote.Text = this.txtNote.Text.Insert(startIndex, changeWord); //커서 있는 부분에 바꿀 문자열 추가
+                this.txtNote.Select(startIndex, changeWord.Length); //선택하기
+                this.txtNote.Focus();
+            }
 
         }
 
