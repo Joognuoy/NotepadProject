@@ -153,6 +153,7 @@
             this.Name = "Form_change";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "바꾸기";
+            this.TopMost = true;
             this.ResumeLayout(false);
             this.PerformLayout();
 

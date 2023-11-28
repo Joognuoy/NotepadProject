@@ -310,12 +310,13 @@ namespace NotePad
             {
                 if (this.txtNote.SelectionStart != 0)
                 {
-                    updown = str.LastIndexOf(findWord, this.txtNote.SelectionStart - 1);
+                    updown = str.LastIndexOf(findWord, this.txtNote.SelectionStart - 1); //last index of -> 지정 위치부터 역순 체크(마지막 단어 시작 위치 반환)
                 }
             }
             else //아래쪽 체크
             {
-                updown = str.LastIndexOf(findWord, this.txtNote.SelectionStart + this.txtNote.SelectionLength);
+                updown = str.IndexOf(findWord, this.txtNote.SelectionStart + this.txtNote.SelectionLength); //index of -> 지정 위치부터 순서대로 체크(첫 단어 시작 위치 반환)
+
             }
 
             if (updown == -1)
@@ -378,6 +379,29 @@ namespace NotePad
 
         private void btn_nxt_Click(object sender, EventArgs e) //바꾸기 폼의 '다음 찾기' 버튼 핸들러
         {
+            var findIndex = -1; //찾을 문자열의 시작 인덱스(-1일 경우 == (존재 안 함 or empty))
+
+            var str = this.txtNote.Text; //본문 문자열
+            var findWord = frmC.txt_find.Text; //찾을 문자열
+
+            if (!frmC.ckbox.Checked) //대소문자 체크 x
+            {
+                str = str.ToUpper(); //본문을 대문자로 변환
+                findWord = findWord.ToUpper(); //찾을 문자열 대문자로 변환
+            }
+
+            findIndex = str.IndexOf(findWord, this.txtNote.SelectionStart + this.txtNote.SelectionLength); //index of -> 지정 위치부터 순서대로 체크(첫 단어 시작 위치 반환)
+
+            if (findIndex == -1)
+            {
+                MessageBox.Show("더 이상 찾는 문자열이 없습니다.", "메모장", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            this.txtNote.Select(findIndex, findWord.Length);
+            fWord_c = frmC.txt_find.Text;
+            this.txtNote.Focus();
+            this.txtNote.ScrollToCaret();
         }
 
         private void btn_change_Click(object sender, EventArgs e) //바꾸기 폼의 '바꾸기' 버튼 핸들러
