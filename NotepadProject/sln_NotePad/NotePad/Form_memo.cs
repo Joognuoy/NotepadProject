@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Text;
 using System.IO;
@@ -38,9 +39,10 @@ namespace NotePad
         private Boolean txtNoteChange; //내용 변경 체크
         private string fWord; //찾기 문자열
         private Form_find frmF; //'찾기' 폼 생성
+        private int zoomPercentage = 100;
+        private float initialFontSize;
 
-
-            // <파일(F) 탭>
+        // <파일(F) 탭>
         /// 새로 만들기, 새 창, 열기, 저장, 다른 이름으로 저장
         /// 페이지 설정, 인쇄
         /// 끝내기
@@ -393,11 +395,35 @@ namespace NotePad
 
         private void 확대IToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            AdjustZoom(1.2); // 폰트 크기를 20% 증가
         }
 
         private void 축소OToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            AdjustZoom(0.8);
+        }
+
+        private void AdjustZoom(double factor)
+        {
+            // 현재 폰트 크기
+            float currentSize = txtNote.Font.Size;
+            Debug.WriteLine($"Current Size: {currentSize}");
+
+            float newSize = currentSize * (float)factor;
+            Debug.WriteLine($"New Size (Before Adjustment): {newSize}");
+
+            // 폰트 크기가 1보다 작거나 1000보다 크지 않도록 조정
+            newSize = Math.Max(1, newSize);
+            newSize = Math.Min(1000, newSize);
+            Debug.WriteLine($"Adjusted Size: {newSize}");
+
+            // 폰트 변경
+            txtNote.Font = new Font(txtNote.Font.FontFamily, newSize, txtNote.Font.Style);
+            Debug.WriteLine($"Font Size After Setting: {txtNote.Font.Size}");
+            Debug.WriteLine($"Initial Font Size: {initialFontSize}");
+            // 상태 표시줄 업데이트
+            zoomPercentage = (int)(txtNote.Font.Size / initialFontSize * 100);
+            UpdateStatusStrip();
 
         }
 
@@ -408,14 +434,35 @@ namespace NotePad
 
         private void 상태표시줄SToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            ssBar.Visible = 상태표시줄SToolStripMenuItem.Checked;
         }
 
-            // <보기(V) 탭> END
+       
+
+        private void UpdateLineAndColumn()
+        {
+            int selectionStart = txtNote.SelectionStart;
+            int line = txtNote.GetLineFromCharIndex(selectionStart) + 1;
+            int column = selectionStart - txtNote.GetFirstCharIndexFromLine(line - 1) + 1;
+
+            // ssBar 아래의 line, column에 정보 업데이트
+            toolStripStatusLabelLine.Text = $"Ln {line},";
+            toolStripStatusLabelColumn.Text = $"Col {column}";
+        }
+
+        private void UpdateStatusStrip()
+        {
+            // 확대된 정도 업데이트
+            toolStripStatusLabelZoom.Text = $"Zoom: {zoomPercentage}%";
+            // 라인과 컬럼 업데이트
+            UpdateLineAndColumn();
+        }
+
+        // <보기(V) 탭> END
 
 
 
-            // <도움말(H) 탭>
+        // <도움말(H) 탭>
         /// 도움말 보기
         /// 메모장 정보
 
@@ -438,6 +485,11 @@ namespace NotePad
         private void txtNote_TextChanged(object sender, EventArgs e)
         {
             this.txtNoteChange = true; //데이터 추가
+            // 텍스트가 변경될 때마다 라인 수와 컬럼 수 업데이트
+            UpdateLineAndColumn();
+
+            // 상태 표시줄 업데이트
+            UpdateStatusStrip();
         }
 
             // <txtNote> END
@@ -534,7 +586,14 @@ namespace NotePad
             //this.ssBar.BackColor = Color.FromArgb(40, 44, 55); //상태 표시줄(남색)
         }
 
-            // <디자인 함수> END
+        private void Form_memo_Load(object sender, EventArgs e)
+        {
+            initialFontSize = txtNote.Font.Size;
+            Debug.WriteLine($"Initial Font Size: {initialFontSize}");
+            UpdateStatusStrip();
+        }
+
+        // <디자인 함수> END
 
     }
 }
