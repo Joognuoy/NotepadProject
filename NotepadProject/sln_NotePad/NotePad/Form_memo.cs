@@ -395,12 +395,12 @@ namespace NotePad
 
         private void 확대IToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AdjustZoom(1.2); // 폰트 크기를 20% 증가
+            AdjustZoom(1.1);
         }
 
         private void 축소OToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AdjustZoom(0.8);
+            AdjustZoom(0.9);
         }
 
         private void AdjustZoom(double factor)
@@ -429,7 +429,9 @@ namespace NotePad
 
         private void 확대하기축소하기기본값복원ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            txtNote.Font = new Font(txtNote.Font.FontFamily, initialFontSize, txtNote.Font.Style);
+            zoomPercentage = 100;
+            UpdateStatusStrip();
         }
 
         private void 상태표시줄SToolStripMenuItem_Click(object sender, EventArgs e)
