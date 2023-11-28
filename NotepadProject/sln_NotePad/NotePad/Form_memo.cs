@@ -37,7 +37,11 @@ namespace NotePad
         //전역 변수2
         private Boolean txtNoteChange; //내용 변경 체크
         private string fWord; //찾기 문자열
+        private string fWord_c; //바꾸기 폼에서 쓸 찾기 문자열
+        private string cWord_c; //바꾸기 폼에서 쓸 바꾸기 문자열
+
         private Form_find frmF; //'찾기' 폼 생성
+        private Form_change frmC; //'바꾸기' 폼 생성
 
 
             // <파일(F) 탭>
@@ -342,8 +346,51 @@ namespace NotePad
 
         private void 바꾸기RToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (!(frmC == null || !frmC.Visible)) //form_find가 정상적으로 보인다면
+            {
+                frmC.Focus();
+                return;
+            }
+
+            frmC = new Form_change();
+
+            if (this.txtNote.SelectionLength == 0) //텍스트가 선택되지 않았다면
+            {
+                frmC.txt_find.Text = this.fWord_c;
+                frmC.txt_change.Text = this.cWord_c;
+            }
+            else //텍스트가 선택되었다면
+            {
+                frmC.txt_find.Text = this.txtNote.SelectedText;
+                frmC.txt_change.Text = this.cWord_c;
+            }
+
+            //핸들러 만들기
+            frmC.btn_nxt.Click += new System.EventHandler(this.btn_nxt_Click); //바꾸기 폼의 '다음 찾기' 버튼 핸들러 만들기
+            frmC.btn_change.Click += new System.EventHandler(this.btn_change_Click); //바꾸기 폼의 '바꾸기' 버튼 핸들러 만들기
+            frmC.btn_all_change.Click += new System.EventHandler(this.btn_all_change_Click); //바꾸기 폼의 '모두 바꾸기' 버튼 핸들러 만들기
+
+            frmC.Show();
 
         }
+
+        // 바꾸기 핸들러
+
+        private void btn_nxt_Click(object sender, EventArgs e) //바꾸기 폼의 '다음 찾기' 버튼 핸들러
+        {
+        }
+
+        private void btn_change_Click(object sender, EventArgs e) //바꾸기 폼의 '바꾸기' 버튼 핸들러
+        {
+
+        }
+
+        private void btn_all_change_Click(object sender, EventArgs e) //바꾸기 폼의 '모두 바꾸기' 버튼 핸들러
+        {
+
+        }
+
+        // 바꾸기 핸들러 END
 
         private void 이동GToolStripMenuItem_Click(object sender, EventArgs e)
         {

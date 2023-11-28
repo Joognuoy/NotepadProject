@@ -19,6 +19,8 @@ namespace NotePad
         public Form_find()
         {
             InitializeComponent();
+
+            //디자인 적용
             fontLoad();
             setFont();
             setBackColor();
@@ -44,7 +46,7 @@ namespace NotePad
 
 
         // <디자인 함수>
-        /// 꾸미기 적용: 아이콘, 외부 폰트, rgb 색상
+        /// 꾸미기 적용: 외부 폰트, rgb 색상
 
         private void fontLoad() //외부 폰트 로드
         {
