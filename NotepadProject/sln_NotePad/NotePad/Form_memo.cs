@@ -35,15 +35,17 @@ namespace NotePad
         }
 
         //전역 변수2
-        private Boolean txtNoteChange; //내용 변경 체크
         private string fWord; //찾기 문자열
         private string fWord_c; //바꾸기 폼에서 쓸 찾기 문자열
         private string cWord_c; //바꾸기 폼에서 쓸 바꾸기 문자열
-        private bool fWordIs = false; //바꿀 문자열이 존재하는지
-        private bool allchangeIs = false; //'모두 바꾸기' 버튼 클릭 여부
+
+        private Boolean txtNoteChange; //내용 변경 체크
+        private Boolean fWordIs = false; //바꿀 문자열이 존재하는지
+        private Boolean allchangeIs = false; //'모두 바꾸기' 버튼 클릭 여부
 
         private Form_find frmF; //'찾기' 폼 생성
         private Form_change frmC; //'바꾸기' 폼 생성
+        private Form_move frmM; //'이동' 폼 생성
 
 
             // <파일(F) 탭>
@@ -490,6 +492,14 @@ namespace NotePad
 
         private void 이동GToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (!(frmM == null || !frmM.Visible)) //form_find가 정상적으로 보인다면
+            {
+                frmM.Focus();
+                return;
+            }
+            frmM = new Form_move();
+
+            frmM.Show();
 
         }
 

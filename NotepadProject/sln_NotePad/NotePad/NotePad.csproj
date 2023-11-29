@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>notepad.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -64,6 +67,12 @@
     <Compile Include="Form_memo.Designer.cs">
       <DependentUpon>Form_memo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_move.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_move.Designer.cs">
+      <DependentUpon>Form_move.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form_change.resx">
@@ -74,6 +83,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_memo.resx">
       <DependentUpon>Form_memo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_move.resx">
+      <DependentUpon>Form_move.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -107,6 +119,7 @@
     <Content Include="icon\notepad.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="notepad.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

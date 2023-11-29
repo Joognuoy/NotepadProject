@@ -13,3 +13,4 @@ C:\Users\YUHAN\Desktop\NotepadProject\NotepadProject\sln_NotePad\NotePad\bin\Deb
 C:\Users\YUHAN\Desktop\NotepadProject\NotepadProject\sln_NotePad\NotePad\bin\Debug\Fonts\SUITE-SemiBold.ttf
 C:\Users\YUHAN\Desktop\NotepadProject\NotepadProject\sln_NotePad\NotePad\obj\Debug\NotePad.Form_find.resources
 C:\Users\YUHAN\Desktop\NotepadProject\NotepadProject\sln_NotePad\NotePad\obj\Debug\NotePad.Form_change.resources
+C:\Users\YUHAN\Desktop\NotepadProject\NotepadProject\sln_NotePad\NotePad\obj\Debug\NotePad.Form_move.resources
