@@ -492,16 +492,66 @@ namespace NotePad
 
         private void 이동GToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!(frmM == null || !frmM.Visible)) //form_find가 정상적으로 보인다면
+            if (!(frmM == null || !frmM.Visible)) //form_move가 정상적으로 보인다면
             {
                 frmM.Focus();
                 return;
             }
             frmM = new Form_move();
 
+            //현재 커서 위치의 줄 번호 가져오기
+            int line_num = this.txtNote.GetLineFromCharIndex(this.txtNote.SelectionStart) + 1; //0번부터 시작하므로 +1
+
+            frmM.txt_line.Text = line_num.ToString(); //줄 번호 폼에 설정
+
+            //핸들러 만들기
+            frmM.btn_move.Click += new System.EventHandler(this.btn_move_Click); //바꾸기 폼의 '다음 찾기' 버튼 핸들러 만들기
+
             frmM.Show();
 
         }
+
+        //이동 핸들러
+
+        private void btn_move_Click(object sender, EventArgs e) //줄 이동 폼의 '이동' 버튼 핸들러
+        {
+            if (!(frmM == null || !frmM.Visible)) //form_move가 정상적으로 보인다면
+            {
+                int move_line = int.Parse(frmM.txt_line.Text); //이동할 라인 가져오기
+
+                if (this.txtNote.GetLineFromCharIndex(this.txtNote.Text.Length) + 1 < move_line || move_line == 0) //입력된 라인수가 현재 존재하는 라인보다 많거나, 0인 경우
+                {
+                    if(move_line == 0)
+                    {
+                        MessageBox.Show("줄 번호는 0이 될 수 없습니다.", "메모장", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    } else
+                    {
+                        MessageBox.Show("줄 번호가 전체 줄 수를 넘습니다.", "메모장", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    
+                    return;
+                }
+
+                //입력된 라인수가 올바른 경우
+                int find_idx = 0;
+                string str = this.txtNote.Text; //본문 가져오기
+
+                this.txtNote.Select(0, 0); //커서 위치 정비
+
+                if(move_line != 1) //첫줄은 커서 위치를 변경할 필요 없음
+                {
+                    for (int i = 1; i < move_line; i++) //원하는 줄 번호보다 1개 적은 개행문자를 만날 때까지
+                    {
+                        find_idx = str.IndexOf("\n", this.txtNote.SelectionStart); //index of -> 지정 위치부터 순서대로 체크
+                        this.txtNote.SelectionStart = find_idx + 1;
+                    }
+                }
+                this.txtNote.Focus();
+            }
+            
+        }
+
+        //이동 핸들러 END
 
         private void 모두선택AToolStripMenuItem_Click(object sender, EventArgs e)
         {

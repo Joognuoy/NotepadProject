@@ -35,6 +35,13 @@ namespace NotePad
             }
         }
 
+        //click
+        private void btn_cancel_Click(object sender, EventArgs e)
+        {
+            this.Close(); //폼 종료
+        }
+
+
 
         // <디자인 함수>
         /// 꾸미기 적용: 외부 폰트, rgb 색상
