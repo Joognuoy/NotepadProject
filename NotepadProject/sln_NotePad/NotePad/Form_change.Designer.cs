@@ -163,12 +163,12 @@
 
         private System.Windows.Forms.Label lbl_find;
         private System.Windows.Forms.Label lbl_change;
-        private System.Windows.Forms.Button btn_cancel;
         internal System.Windows.Forms.TextBox txt_find;
         internal System.Windows.Forms.TextBox txt_change;
         internal System.Windows.Forms.Button btn_nxt;
         internal System.Windows.Forms.Button btn_change;
         internal System.Windows.Forms.Button btn_all_change;
         internal System.Windows.Forms.CheckBox ckbox;
+        internal System.Windows.Forms.Button btn_cancel;
     }
 }

@@ -39,6 +39,8 @@ namespace NotePad
         private string fWord; //찾기 문자열
         private string fWord_c; //바꾸기 폼에서 쓸 찾기 문자열
         private string cWord_c; //바꾸기 폼에서 쓸 바꾸기 문자열
+        private bool fWordIs = false; //바꿀 문자열이 존재하는지
+        private bool allchangeIs = false; //'모두 바꾸기' 버튼 클릭 여부
 
         private Form_find frmF; //'찾기' 폼 생성
         private Form_change frmC; //'바꾸기' 폼 생성
@@ -370,6 +372,7 @@ namespace NotePad
             frmC.btn_nxt.Click += new System.EventHandler(this.btn_nxt_Click); //바꾸기 폼의 '다음 찾기' 버튼 핸들러 만들기
             frmC.btn_change.Click += new System.EventHandler(this.btn_change_Click); //바꾸기 폼의 '바꾸기' 버튼 핸들러 만들기
             frmC.btn_all_change.Click += new System.EventHandler(this.btn_all_change_Click); //바꾸기 폼의 '모두 바꾸기' 버튼 핸들러 만들기
+            frmC.btn_cancel.Click += new System.EventHandler(this.btn_cancel_Click); //바꾸기 폼의 '모두 바꾸기' 버튼 핸들러 만들기
 
             frmC.Show();
 
@@ -394,9 +397,15 @@ namespace NotePad
 
             if (findIndex == -1)
             {
-                MessageBox.Show("더 이상 찾는 문자열이 없습니다.", "메모장", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                if(allchangeIs == false) //모두 바꾸기는 메시지 출력 x
+                {
+                    MessageBox.Show("더 이상 찾는 문자열이 없습니다.", "메모장", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                fWordIs = false; //존재하지 않음
                 return;
             }
+
+            fWordIs = true; //존재함
 
             this.txtNote.Select(findIndex, findWord.Length);
             fWord_c = frmC.txt_find.Text;
@@ -409,24 +418,72 @@ namespace NotePad
             var changeWord = frmC.txt_change.Text; //바꿀 문자열
             var findWord = frmC.txt_find.Text; //찾을 문자열
 
-            btn_nxt_Click(this, null); //바꿀 부분 찾기
-
-            if (this.txtNote.SelectionLength != 0 && this.txtNote.SelectedText == findWord) //선택된 부분이 있으면(바꿀 부분이 있다면)
+            if (fWordIs == false) //바꿀 부분을 아직 찾지 않았다면
             {
-                var startIndex = this.txtNote.SelectionStart; //선택된 부분 첫번째 인덱스
-
-                this.txtNote.SelectedText = ""; //선택된 텍스트 지우기
-
-                this.txtNote.Text = this.txtNote.Text.Insert(startIndex, changeWord); //커서 있는 부분에 바꿀 문자열 추가
-                this.txtNote.Select(startIndex, changeWord.Length); //선택하기
-                this.txtNote.Focus();
+                btn_nxt_Click(this, null); //바꿀 부분 찾기
+                return;
             }
+
+            //바꿀 부분이 선택되어 있다면
+            var startIndex = this.txtNote.SelectionStart; //선택된 부분 첫번째 인덱스
+
+            this.txtNote.SelectedText = ""; //선택된 텍스트 지우기
+
+            this.txtNote.Text = this.txtNote.Text.Insert(startIndex, changeWord); //커서 있는 부분에 바꿀 문자열 추가
+
+            btn_nxt_Click(this, null); //다음 바꿀 부분 찾기
+            this.txtNote.Focus();
+
+            //전역 변수 설정
+            fWord_c = frmC.txt_find.Text;
+            cWord_c = frmC.txt_change.Text;
 
         }
 
         private void btn_all_change_Click(object sender, EventArgs e) //바꾸기 폼의 '모두 바꾸기' 버튼 핸들러
         {
+            allchangeIs = true; //'모두 바꾸기' 선택 여부 수정
 
+            var changeWord = frmC.txt_change.Text; //바꿀 문자열
+            var findWord = frmC.txt_find.Text; //찾을 문자열
+
+            do
+            {
+                btn_nxt_Click(this, null); //바꿀 부분 찾기
+
+                if(fWordIs == true)
+                {
+                    var startIndex = this.txtNote.SelectionStart; //선택된 부분 첫번째 인덱스
+
+                    this.txtNote.SelectedText = ""; //선택된 텍스트 지우기
+
+                    this.txtNote.Text = this.txtNote.Text.Insert(startIndex, changeWord); //커서 있는 부분에 바꿀 문자열 추가
+                    this.txtNote.Select(startIndex, changeWord.Length); //선택하기
+                }
+                
+            } while (fWordIs == true);
+
+            //모두 바꾼 후 동작
+            this.txtNote.Select(0, 0); //커서 위치 정비
+            frmC.btn_all_change.Focus();
+
+            //전역 변수 설정
+            fWord_c = frmC.txt_find.Text;
+            cWord_c = frmC.txt_change.Text;
+
+            allchangeIs = false; //'모두 바꾸기' 선택 여부 초기화
+        }
+
+
+        private void btn_cancel_Click(object sender, EventArgs e) //바꾸기 폼의 '취소' 버튼 핸들러
+        {
+            //전역변수 초기화
+            fWord_c = null; //바꾸기 폼에서 쓸 찾기 문자열
+            cWord_c = null; //바꾸기 폼에서 쓸 바꾸기 문자열
+            fWordIs = false; //바꿀 문자열이 존재하는지
+            allchangeIs = false; //'모두 바꾸기' 버튼 클릭 여부
+
+            frmC.Close();
         }
 
         // 바꾸기 핸들러 END
