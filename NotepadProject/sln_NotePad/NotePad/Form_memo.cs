@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Common;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Text;
@@ -422,36 +423,37 @@ namespace NotePad
 
         private void 확대IToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AdjustZoom(1.1);
+            ZoomIn();
         }
 
         private void 축소OToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AdjustZoom(0.9);
+            ZoomOut();
         }
 
-        private void AdjustZoom(double factor)
+        private void ZoomIn()
         {
-            // 현재 폰트 크기
-            float currentSize = txtNote.Font.Size;
-            Debug.WriteLine($"Current Size: {currentSize}");
+            if (zoomPercentage < 300) 
+            {
+                zoomPercentage += 10;
+                ApplyZoom();
+            }
+        }
 
-            float newSize = currentSize * (float)factor;
-            Debug.WriteLine($"New Size (Before Adjustment): {newSize}");
+        private void ZoomOut()
+        {
+            if (zoomPercentage > 10)
+            {
+                zoomPercentage -= 10;
+                ApplyZoom();
+            }
+        }
 
-            // 폰트 크기가 1보다 작거나 1000보다 크지 않도록 조정
-            newSize = Math.Max(1, newSize);
-            newSize = Math.Min(1000, newSize);
-            Debug.WriteLine($"Adjusted Size: {newSize}");
-
-            // 폰트 변경
-            txtNote.Font = new Font(txtNote.Font.FontFamily, newSize, txtNote.Font.Style);
-            Debug.WriteLine($"Font Size After Setting: {txtNote.Font.Size}");
-            Debug.WriteLine($"Initial Font Size: {initialFontSize}");
-            // 상태 표시줄 업데이트
-            zoomPercentage = (int)(txtNote.Font.Size / initialFontSize * 100);
+        private void ApplyZoom()
+        {
+            float newFontSize = initialFontSize * (zoomPercentage / 100.0f);
+            txtNote.Font = new Font(txtNote.Font.FontFamily, newFontSize, txtNote.Font.Style);
             UpdateStatusStrip();
-
         }
 
         private void 확대하기축소하기기본값복원ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -482,7 +484,8 @@ namespace NotePad
         private void UpdateStatusStrip()
         {
             // 확대된 정도 업데이트
-            toolStripStatusLabelZoom.Text = $"Zoom: {zoomPercentage}%";
+            toolStripStatusLabelZoom.Text = $"{zoomPercentage}%";
+
             // 라인과 컬럼 업데이트
             UpdateLineAndColumn();
         }
