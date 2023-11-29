@@ -33,8 +33,35 @@ namespace NotePad
             setFont();
             setBackColor();
 
+            shortcut();
         }
 
+        private void shortcut()
+        {
+            // 파일 메뉴
+            새로만들기NToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.N;
+            새창WToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.W;
+            열기OToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.O;
+            저장SToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.S;
+            다른이름으로저장AToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Shift | Keys.S;
+
+            // 편집 메뉴
+            실행취소UToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Z;
+            잘라내기TToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.X;
+            복사CToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.C;
+            붙여넣기PToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.V;
+            삭제LToolStripMenuItem.ShortcutKeys = Keys.Delete;
+            모두선택AToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.A;
+
+            // 서식 메뉴
+            자동줄바꿈WToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Shift | Keys.W;
+            글꼴FToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.F;
+
+            // 보기 메뉴
+            확대IToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Oemplus;
+            축소OToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.OemMinus;
+            확대하기축소하기기본값복원ToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.D0; // 0 키
+        }
         //전역 변수2
         private Boolean txtNoteChange; //내용 변경 체크
         private string fWord; //찾기 문자열
