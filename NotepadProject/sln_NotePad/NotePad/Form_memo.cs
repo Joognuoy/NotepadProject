@@ -16,11 +16,14 @@ namespace NotePad
     /// <summary>
     /// 메모장 폼
     /// </summary>
-    
+
     public partial class Form_memo : Form
     {
         //전역 변수1
         PrivateFontCollection privateFonts; //외부 폰트 적용을 위한 클래스
+
+        private string fTitle = "제목 없음"; //폼 text에 들어갈 파일 제목
+        private string fName = " - Yuhan 메모장"; //폼 text에 들어갈 메모장 이름
 
         public Form_memo()
         {
@@ -31,6 +34,9 @@ namespace NotePad
             fontLoad();
             setFont();
             setBackColor();
+
+            //text
+            this.Text = fTitle + fName;
 
         }
 
@@ -48,7 +54,7 @@ namespace NotePad
         private Form_move frmM; //'이동' 폼 생성
 
 
-            // <파일(F) 탭>
+        // <파일(F) 탭>
         /// 새로 만들기, 새 창, 열기, 저장, 다른 이름으로 저장
         /// 페이지 설정, 인쇄
         /// 끝내기
@@ -58,23 +64,29 @@ namespace NotePad
 
         private void 새로만들기NToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(this.txtNoteChange == true) //문서가 변경되었다면
+            if (this.txtNoteChange == true) //문서가 변경되었다면
             {
-                var msg = this.Text + " 파일의 내용이 변경되었습니다. \r\n 변경된 내용을 저장하시겠습니까?";
-                
+                var msg = fTitle + " 파일의 내용이 변경되었습니다. \r\n 변경된 내용을 저장하시겠습니까?";
+
                 var dlr = MessageBox.Show(msg, "메모장", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning); //경고창 띄우기
 
                 if (dlr == DialogResult.Yes) //저장하고 리셋
                 {
                     textSave();
                     this.txtNote.ResetText();
-                    this.Text = "제목 없음";
+
+                    fTitle = "제목 없음";
+                    this.Text = fTitle + fName;
+
                     this.txtNoteChange = false;
                 }
                 else if (dlr == DialogResult.No) //저장 안 하고 리셋
                 {
                     this.txtNote.ResetText();
-                    this.Text = "제목 없음";
+
+                    fTitle = "제목 없음";
+                    this.Text = fTitle + fName;
+
                     this.txtNoteChange = false;
                 }
                 else if (dlr == DialogResult.Cancel) //취소
@@ -84,14 +96,20 @@ namespace NotePad
                 else
                 {
                     this.txtNote.ResetText();
-                    this.Text = "제목 없음";
+
+                    fTitle = "제목 없음";
+                    this.Text = fTitle + fName;
+
                     this.txtNoteChange = false;
                 }
             }
             else //문서가 변경되지 않았다면
             {
                 this.txtNote.ResetText();
-                this.Text = "제목 없음";
+
+                fTitle = "제목 없음";
+                this.Text = fTitle + fName;
+
                 this.txtNoteChange = false;
             }
 
@@ -105,9 +123,9 @@ namespace NotePad
 
         private void 열기OToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(this.txtNoteChange == true) //문서가 변경되었다면
+            if (this.txtNoteChange == true) //문서가 변경되었다면
             {
-                var msg = this.Text + " 파일의 내용이 변경되었습니다. \r\n 변경된 내용을 저장하시겠습니까?";
+                var msg = fTitle + " 파일의 내용이 변경되었습니다. \r\n 변경된 내용을 저장하시겠습니까?";
 
                 var dlr = MessageBox.Show(msg, "메모장", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning); //경고창 띄우기
 
@@ -143,11 +161,14 @@ namespace NotePad
             if (dlr != DialogResult.Cancel) //취소를 누르지 않았다면
             {
                 var str = this.sfdFile.FileName; //파일 경로
-                var sw = new StreamWriter(str, false, System.Text.Encoding.Default); //StreamWriter 생성자를 이용하여 개체 생성
+                var sw = new StreamWriter(str, false, System.Text.Encoding.UTF8); //StreamWriter 생성자를 이용하여 개체 생성
                 sw.Write(this.txtNote.Text); // Write 메서드를 이용하여 지정된 경로에 txtNote 컨트롤의 입력 문자열 저장
                 sw.Flush();
                 sw.Close();
-                this.Text = str;
+
+                fTitle = str.Substring(str.LastIndexOf("\\") + 1); //경로 지우고 파일명만 남기기
+                this.Text = fTitle + fName;
+
                 this.txtNoteChange = false; //입력 데이터 입력 및 수정 초기화 
             }
         }
@@ -175,29 +196,35 @@ namespace NotePad
 
         private void textSave() //데이터 저장
         {
-            if (this.Text == "제목 없음")
+            if (fTitle == "제목 없음")
             {
                 var dlr = this.sfdFile.ShowDialog(); //save file dialog
 
                 if (dlr != DialogResult.Cancel) //취소를 누르지 않는다면
                 {
                     var str = this.sfdFile.FileName;
-                    var sw = new StreamWriter(str, false, System.Text.Encoding.Default);
+                    var sw = new StreamWriter(str, false, System.Text.Encoding.UTF8);
                     sw.Write(this.txtNote.Text);
                     sw.Flush();
                     sw.Close();
-                    this.Text = str;
+
+                    fTitle = str.Substring(str.LastIndexOf("\\") + 1); //경로 지우고 파일명만 남기기 
+                    this.Text = fTitle + fName;
+
                     this.txtNoteChange = false;
                 }
             }
             else
             {
-                var strt = this.Text;
-                var sw = new StreamWriter(strt, false, System.Text.Encoding.Default);
+                var strt = fTitle;
+                var sw = new StreamWriter(strt, false, System.Text.Encoding.UTF8);
                 sw.Write(this.txtNote.Text);
                 sw.Flush();
                 sw.Close();
-                this.Text = strt;
+
+                fTitle = strt.Substring(strt.LastIndexOf("\\") + 1); //경로 지우고 파일명만 남기기
+                this.Text = fTitle + fName;
+
                 this.txtNoteChange = false;
             }
         }
@@ -213,18 +240,21 @@ namespace NotePad
                 var sr = new StreamReader(str, System.Text.Encoding.UTF8); //파일 불러올 때 깨져서 바꿈
                 this.txtNote.Text = sr.ReadToEnd();
                 sr.Close();
-                this.Text = str;
+
+                fTitle = str.Substring(str.LastIndexOf("\\") + 1); //경로 지우고 파일명만 남기기 
+                this.Text = fTitle + fName;
+
                 this.txtNoteChange = false;
             }
         }
 
         //함수 END
 
-            // <파일(F) 탭> END
+        // <파일(F) 탭> END
 
 
 
-            // <편집(E) 탭>
+        // <편집(E) 탭>
         /// 실행 취소
         /// 잘라내기, 복사, 붙여넣기, 삭제
         /// Google로 검색, 찾기, 다음 찾기, 이전 찾기, 바꾸기, 이동
@@ -279,14 +309,14 @@ namespace NotePad
 
         private void 찾기FToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(!(frmF == null || !frmF.Visible)) //form_find가 정상적으로 보인다면
+            if (!(frmF == null || !frmF.Visible)) //form_find가 정상적으로 보인다면
             {
                 frmF.Focus();
                 return;
             }
             frmF = new Form_find();
 
-            if(this.txtNote.SelectionLength == 0) //텍스트가 선택되지 않았다면
+            if (this.txtNote.SelectionLength == 0) //텍스트가 선택되지 않았다면
             {
                 frmF.txtWord.Text = this.fWord;
             }
@@ -310,7 +340,7 @@ namespace NotePad
                 findWord = findWord.ToUpper(); //찾을 문자열 대문자로 변환
             }
 
-            if(frmF.rdb_up.Checked) //위쪽 체크
+            if (frmF.rdb_up.Checked) //위쪽 체크
             {
                 if (this.txtNote.SelectionStart != 0)
                 {
@@ -399,7 +429,7 @@ namespace NotePad
 
             if (findIndex == -1)
             {
-                if(allchangeIs == false) //모두 바꾸기는 메시지 출력 x
+                if (allchangeIs == false) //모두 바꾸기는 메시지 출력 x
                 {
                     MessageBox.Show("더 이상 찾는 문자열이 없습니다.", "메모장", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
@@ -453,7 +483,7 @@ namespace NotePad
             {
                 btn_nxt_Click(this, null); //바꿀 부분 찾기
 
-                if(fWordIs == true)
+                if (fWordIs == true)
                 {
                     var startIndex = this.txtNote.SelectionStart; //선택된 부분 첫번째 인덱스
 
@@ -462,7 +492,7 @@ namespace NotePad
                     this.txtNote.Text = this.txtNote.Text.Insert(startIndex, changeWord); //커서 있는 부분에 바꿀 문자열 추가
                     this.txtNote.Select(startIndex, changeWord.Length); //선택하기
                 }
-                
+
             } while (fWordIs == true);
 
             //모두 바꾼 후 동작
@@ -521,14 +551,15 @@ namespace NotePad
 
                 if (this.txtNote.GetLineFromCharIndex(this.txtNote.Text.Length) + 1 < move_line || move_line == 0) //입력된 라인수가 현재 존재하는 라인보다 많거나, 0인 경우
                 {
-                    if(move_line == 0)
+                    if (move_line == 0)
                     {
                         MessageBox.Show("줄 번호는 0이 될 수 없습니다.", "메모장", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    } else
+                    }
+                    else
                     {
                         MessageBox.Show("줄 번호가 전체 줄 수를 넘습니다.", "메모장", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
-                    
+
                     return;
                 }
 
@@ -538,7 +569,7 @@ namespace NotePad
 
                 this.txtNote.Select(0, 0); //커서 위치 정비
 
-                if(move_line != 1) //첫줄은 커서 위치를 변경할 필요 없음
+                if (move_line != 1) //첫줄은 커서 위치를 변경할 필요 없음
                 {
                     for (int i = 1; i < move_line; i++) //원하는 줄 번호보다 1개 적은 개행문자를 만날 때까지
                     {
@@ -548,7 +579,7 @@ namespace NotePad
                 }
                 this.txtNote.Focus();
             }
-            
+
         }
 
         //이동 핸들러 END
@@ -565,12 +596,12 @@ namespace NotePad
             this.txtNote.AppendText(time + "/" + date); //입력 데이터 맨 뒤에 이어서 시간/날짜 정보 추가
         }
 
-            // <편집(E) 탭> END
+        // <편집(E) 탭> END
 
 
 
 
-            // <서식(O) 탭>
+        // <서식(O) 탭>
         /// 자동 줄 바꿈, 글꼴 
 
         private void 자동줄바꿈WToolStripMenuItem_Click(object sender, EventArgs e)
@@ -587,11 +618,11 @@ namespace NotePad
             }
         }
 
-            // <서식(O) 탭> END
+        // <서식(O) 탭> END
 
 
 
-            // <보기(V) 탭>
+        // <보기(V) 탭>
         /// '확대하기/축소하기'(확대, 축소, 확대축소 기본값 복원), 상태 표시줄
 
         private void 확대IToolStripMenuItem_Click(object sender, EventArgs e)
@@ -614,11 +645,11 @@ namespace NotePad
 
         }
 
-            // <보기(V) 탭> END
+        // <보기(V) 탭> END
 
 
 
-            // <도움말(H) 탭>
+        // <도움말(H) 탭>
         /// 도움말 보기
         /// 메모장 정보
 
@@ -632,29 +663,38 @@ namespace NotePad
 
         }
 
-            // <도움말(H) 탭> END
+        // <도움말(H) 탭> END
 
 
 
 
-            // <txtNote>
+        // <txtNote>
         private void txtNote_TextChanged(object sender, EventArgs e)
         {
-            this.txtNoteChange = true; //데이터 추가
+            if (fTitle == "제목 없음" && this.txtNote.Text.Length == 0) //제목없음 문서의 경우, 내용을 모두 지워버리면 * 표시가 사라짐
+            {
+                this.txtNoteChange = false;
+                this.Text = fTitle + fName;
+            }
+            else
+            {
+                this.txtNoteChange = true; //데이터 추가
+                this.Text = "*" + fTitle + fName;
+            }
         }
 
-            // <txtNote> END
+        // <txtNote> END
 
 
 
-            // <Form_memo>
+        // <Form_memo>
         private void Form_memo_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = true;
 
-            if(this.txtNoteChange == true) //문서가 변경되었다면
+            if (this.txtNoteChange == true) //문서가 변경되었다면
             {
-                var msg = this.Text + " 파일의 내용이 변경되었습니다. \r\n 변경된 내용을 저장하시겠습니까?";
+                var msg = fTitle + " 파일의 내용이 변경되었습니다. \r\n 변경된 내용을 저장하시겠습니까?";
 
                 var dlr = MessageBox.Show(msg, "메모장", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning); //경고창 띄우기
 
@@ -703,11 +743,11 @@ namespace NotePad
             }
         }
 
-            // <Form_memo> END
+        // <Form_memo> END
 
 
 
-            // <디자인 함수>
+        // <디자인 함수>
         /// 꾸미기 적용: 아이콘, 외부 폰트, rgb 색상
 
         private void setIcon() //아이콘 설정
@@ -737,7 +777,7 @@ namespace NotePad
             //this.ssBar.BackColor = Color.FromArgb(40, 44, 55); //상태 표시줄(남색)
         }
 
-            // <디자인 함수> END
+        // <디자인 함수> END
 
     }
 }
