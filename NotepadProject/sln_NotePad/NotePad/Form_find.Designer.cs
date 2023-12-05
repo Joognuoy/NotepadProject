@@ -53,7 +53,7 @@
             // txtWord
             // 
             this.txtWord.Location = new System.Drawing.Point(129, 38);
-            this.txtWord.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtWord.Margin = new System.Windows.Forms.Padding(4);
             this.txtWord.Name = "txtWord";
             this.txtWord.Size = new System.Drawing.Size(427, 28);
             this.txtWord.TabIndex = 1;
@@ -63,7 +63,7 @@
             // 
             this.btnOk.Font = new System.Drawing.Font("굴림", 10F);
             this.btnOk.Location = new System.Drawing.Point(586, 38);
-            this.btnOk.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnOk.Margin = new System.Windows.Forms.Padding(4);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(114, 34);
             this.btnOk.TabIndex = 2;
@@ -74,7 +74,7 @@
             // 
             this.btnCancel.Font = new System.Drawing.Font("굴림", 10F);
             this.btnCancel.Location = new System.Drawing.Point(586, 150);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(114, 34);
             this.btnCancel.TabIndex = 3;
@@ -87,7 +87,7 @@
             this.chOption.AutoSize = true;
             this.chOption.Font = new System.Drawing.Font("굴림", 10F);
             this.chOption.Location = new System.Drawing.Point(50, 150);
-            this.chOption.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chOption.Margin = new System.Windows.Forms.Padding(4);
             this.chOption.Name = "chOption";
             this.chOption.Size = new System.Drawing.Size(171, 24);
             this.chOption.TabIndex = 4;
@@ -100,9 +100,9 @@
             this.groupBox.Controls.Add(this.rdb_up);
             this.groupBox.Font = new System.Drawing.Font("굴림", 10F);
             this.groupBox.Location = new System.Drawing.Point(271, 123);
-            this.groupBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox.Name = "groupBox";
-            this.groupBox.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox.Size = new System.Drawing.Size(286, 75);
             this.groupBox.TabIndex = 5;
             this.groupBox.TabStop = false;
@@ -113,7 +113,7 @@
             this.rdb_down.AutoSize = true;
             this.rdb_down.Checked = true;
             this.rdb_down.Location = new System.Drawing.Point(149, 30);
-            this.rdb_down.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rdb_down.Margin = new System.Windows.Forms.Padding(4);
             this.rdb_down.Name = "rdb_down";
             this.rdb_down.Size = new System.Drawing.Size(94, 24);
             this.rdb_down.TabIndex = 1;
@@ -125,7 +125,7 @@
             // 
             this.rdb_up.AutoSize = true;
             this.rdb_up.Location = new System.Drawing.Point(46, 30);
-            this.rdb_up.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rdb_up.Margin = new System.Windows.Forms.Padding(4);
             this.rdb_up.Name = "rdb_up";
             this.rdb_up.Size = new System.Drawing.Size(74, 24);
             this.rdb_up.TabIndex = 0;
@@ -144,7 +144,7 @@
             this.Controls.Add(this.txtWord);
             this.Controls.Add(this.lblWord);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form_find";

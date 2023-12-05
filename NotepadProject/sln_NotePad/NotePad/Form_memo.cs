@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace NotePad
 {
 
@@ -295,6 +296,14 @@ namespace NotePad
 
         private void btnOk_Click(object sender, EventArgs e) //찾기 폼의 ok 버튼 클릭 이벤트
         {
+
+            // Check if frmF is null and instantiate it if needed
+            if (frmF == null)
+            {
+                frmF = new Form_find();
+                frmF.btnOk.Click += new System.EventHandler(this.btnOk_Click);
+            }
+
             var updown = -1;
             var str = this.txtNote.Text; //본문 문자열
             var findWord = frmF.txtWord.Text; //찾을 문자열
@@ -335,12 +344,32 @@ namespace NotePad
             {
                 frmF.txtWord.Text = this.fWord;
                 this.btnOk_Click(this, null);
+
             }
         }
 
         private void 이전찾기VToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(fWord)) return;
+            this.btnOk_Click(this, null);
+
+            if (string.IsNullOrEmpty(fWord))
+            {
+                // If fWord is null or empty, show the Form_find window to input the search word
+                using (Form_find formFind = new Form_find())
+                {
+                    if (formFind.ShowDialog() == DialogResult.OK)
+                    {
+                        fWord = formFind.GetSearchWord();
+                        this.btnOk_Click(this, null);
+
+                    }
+                    else
+                    { 
+                        // User canceled the search
+                        return;
+                    }
+                }
+            }
 
             // Get the current selection start position
             int currentSelectionStart = this.txtNote.SelectionStart;
@@ -360,8 +389,14 @@ namespace NotePad
             {
                 MessageBox.Show("더 이전에 찾는 문자열이 없습니다.", "메모장", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+
+
+
+
         }
 
+
+        
         private void 바꾸기RToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
@@ -443,7 +478,17 @@ namespace NotePad
 
         private void 도움말보기HToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            string url = "https://github.com/JooYeong-Lee/NotepadProject.git";
 
+            try
+            {
+                System.Diagnostics.Process.Start(url);
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions that may occur
+                MessageBox.Show($"Error opening URL: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void 메모장정보AToolStripMenuItem_Click(object sender, EventArgs e)
@@ -557,7 +602,12 @@ namespace NotePad
             //this.ssBar.BackColor = Color.FromArgb(40, 44, 55); //상태 표시줄(남색)
         }
 
-            // <디자인 함수> END
+        private void Form_memo_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        // <디자인 함수> END
 
     }
 }

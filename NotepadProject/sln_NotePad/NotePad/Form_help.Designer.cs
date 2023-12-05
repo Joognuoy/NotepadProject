@@ -92,7 +92,7 @@
             this.Controls.Add(this.label1);
             this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.Name = "Form_help";
-            this.Text = "도움말 보기";
+            this.Text = "메모장 정보";
             this.Load += new System.EventHandler(this.Form_help_Load);
             this.ResumeLayout(false);
 

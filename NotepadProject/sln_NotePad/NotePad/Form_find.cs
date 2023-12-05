@@ -24,8 +24,16 @@ namespace NotePad
             setBackColor();
         }
 
+
+
+        public string GetSearchWord()
+        {
+            return txtWord.Text; 
+        }
+
         private void txtWord_TextChanged(object sender, EventArgs e)
         {
+
             if (this.txtWord.Text == "")
             {
                 this.btnOk.Enabled = false; //버튼 비활성화 
