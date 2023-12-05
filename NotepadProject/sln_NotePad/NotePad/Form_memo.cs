@@ -655,7 +655,21 @@ namespace NotePad
 
         private void 도움말보기HToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            string search_str = this.txtNote.SelectedText.Replace(" ", "+");
+            string target = "https://github.com/JooYeong-Lee/NotepadProject";
 
+            try
+            {
+                System.Diagnostics.Process.Start(target);
+            }
+            catch (System.ComponentModel.Win32Exception noBrowser)
+            {
+                if (noBrowser.ErrorCode == -2147467259) { MessageBox.Show(noBrowser.Message); }
+            }
+            catch (System.Exception other)
+            {
+                MessageBox.Show(other.Message);
+            }
         }
 
         private void 메모장정보AToolStripMenuItem_Click(object sender, EventArgs e)
