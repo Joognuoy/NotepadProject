@@ -15,3 +15,4 @@ C:\Users\YUHAN\Desktop\NotepadProject\NotepadProject\sln_NotePad\NotePad\obj\Deb
 C:\Users\YUHAN\Desktop\NotepadProject\NotepadProject\sln_NotePad\NotePad\obj\Debug\NotePad.Form_change.resources
 C:\Users\YUHAN\Desktop\NotepadProject\NotepadProject\sln_NotePad\NotePad\obj\Debug\NotePad.Form_move.resources
 C:\Users\YUHAN\Desktop\NotepadProject\NotepadProject\sln_NotePad\NotePad\obj\Debug\NotePad.csproj.SuggestedBindingRedirects.cache
+C:\Users\YUHAN\Desktop\NotepadProject\NotepadProject\sln_NotePad\NotePad\bin\Debug\temp\test-print.txt

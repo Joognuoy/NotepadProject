@@ -53,6 +53,9 @@ namespace NotePad
         private Form_change frmC; //'바꾸기' 폼 생성
         private Form_move frmM; //'이동' 폼 생성
 
+        private Font printFont; //프린트 작업을 위한 폰트
+        private Color printColor;
+
 
         // <파일(F) 탭>
         /// 새로 만들기, 새 창, 열기, 저장, 다른 이름으로 저장
@@ -175,11 +178,67 @@ namespace NotePad
 
         private void 페이지설정UToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            pDoc.DocumentName = fTitle;
+            pageSet.Document = pDoc;
+            pageSet.ShowDialog();
         }
 
         private void 인쇄PToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //인쇄용 임시 파일에 textnote 내용 넣기
+            var sw = new StreamWriter("temp/test-print.txt", false, System.Text.Encoding.UTF8);
+            sw.Write(this.txtNote.Text);
+            sw.Flush();
+            sw.Close();
+
+            //인쇄 폰트 설정
+            printFont = this.txtNote.Font;
+            printColor = this.txtNote.ForeColor;
+
+            //인쇄 printDocument 설정
+            pDoc.DocumentName = fTitle;
+            printDlg.Document = pDoc;
+
+            if(printDlg.ShowDialog() == DialogResult.OK) //인쇄 버튼 누르면
+            {
+                pDoc.Print();
+            }
+            
+        }
+
+        private void pDoc_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e) //인쇄 페이지 설정
+        {
+            //
+            float linesPerPage = 0; //한 페이지 당 줄 수
+            float yPos = 0; //출력할 y 좌표
+            int count = 0; //줄 수 카운트
+            string line = null;
+
+            StreamReader streamToPrint = new StreamReader("temp/test-print.txt"); //인쇄용 temp 파일 읽기
+
+            float leftMargin = e.MarginBounds.Left; //왼쪽 마진
+            float topMargin = e.MarginBounds.Top; //위쪽 마진
+
+            Brush brush = new SolidBrush(printColor); //브러쉬 색 설정
+
+            //한 페이지 당 줄 수 계산
+            linesPerPage = e.MarginBounds.Height / printFont.GetHeight(e.Graphics); // 인쇄 영역 높이/ 폰트 크기
+
+            //파일에 한 줄씩 DrawString
+            while(count < linesPerPage &&
+                (line = streamToPrint.ReadLine()) != null)
+            {
+                yPos = topMargin + (count * printFont.GetHeight(e.Graphics)); //출력할 y 좌표 계산
+                e.Graphics.DrawString(line, printFont, brush, leftMargin, yPos, new StringFormat()); //DrawString
+                
+                count++;
+            }
+
+            //출력할 행이 더 있으면 새 페이지
+            if(line != null) { e.HasMorePages = true; }
+            else { e.HasMorePages = false; }
+
+            streamToPrint.Close();
 
         }
 
