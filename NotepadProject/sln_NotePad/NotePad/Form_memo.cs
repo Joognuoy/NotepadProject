@@ -338,38 +338,37 @@ namespace NotePad
             this.txtNote.ScrollToCaret();
         }
 
+     
+
         private void 다음찾기NpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!(frmF == null || !frmF.Visible)) //form_find가 정상적으로 보인다면
+            if (!(frmF == null || !frmF.Visible)) // If form_find is visible
             {
-                frmF.txtWord.Text = this.fWord;
-                this.btnOk_Click(this, null);
+                string searchWord = frmF.txtWord.Text;
 
+                // Get the current selection start position
+                int currentSelectionStart = this.txtNote.SelectionStart;
+
+                // Calculate the startIndex to search for the text after the current selection
+                int startIndex = (currentSelectionStart < this.txtNote.Text.Length) ? currentSelectionStart + 1 : this.txtNote.Text.Length;
+
+                // Perform the search
+                int index = this.txtNote.Text.IndexOf(searchWord, startIndex, StringComparison.CurrentCultureIgnoreCase);
+
+                if (index != -1)
+                {
+                    this.txtNote.Select(index, searchWord.Length);
+                    searchStartPosition = index;
+                }
+                else
+                {
+                    MessageBox.Show("더 다음에 찾는 문자열이 없습니다.", "메모장", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
         }
 
         private void 이전찾기VToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.btnOk_Click(this, null);
-
-            if (string.IsNullOrEmpty(fWord))
-            {
-                // If fWord is null or empty, show the Form_find window to input the search word
-                using (Form_find formFind = new Form_find())
-                {
-                    if (formFind.ShowDialog() == DialogResult.OK)
-                    {
-                        fWord = formFind.GetSearchWord();
-                        this.btnOk_Click(this, null);
-
-                    }
-                    else
-                    { 
-                        // User canceled the search
-                        return;
-                    }
-                }
-            }
 
             // Get the current selection start position
             int currentSelectionStart = this.txtNote.SelectionStart;
@@ -389,10 +388,6 @@ namespace NotePad
             {
                 MessageBox.Show("더 이전에 찾는 문자열이 없습니다.", "메모장", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-
-
-
-
         }
 
 

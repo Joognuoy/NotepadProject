@@ -164,11 +164,11 @@
 
         private System.Windows.Forms.Label lblWord;
         internal System.Windows.Forms.TextBox txtWord;
-        internal System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.Button btnCancel;
         internal System.Windows.Forms.CheckBox chOption;
         private System.Windows.Forms.GroupBox groupBox;
         internal System.Windows.Forms.RadioButton rdb_up;
         internal System.Windows.Forms.RadioButton rdb_down;
+        public System.Windows.Forms.Button btnOk;
     }
 }

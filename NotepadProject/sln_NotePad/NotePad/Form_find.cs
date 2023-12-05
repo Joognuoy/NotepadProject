@@ -81,6 +81,8 @@ namespace NotePad
             this.btnCancel.BackColor = Color.FromArgb(155, 174, 200); //버튼 (연한 파란색)
         }
 
+
+
         // <디자인 함수> END
     }
 }
