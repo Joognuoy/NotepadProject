@@ -38,9 +38,11 @@ namespace NotePad
         private Boolean txtNoteChange; //내용 변경 체크
         private string fWord; //찾기 문자열
         private Form_find frmF; //'찾기' 폼 생성
+        private int searchStartPosition = 0;
+        private Form help;
 
 
-            // <파일(F) 탭>
+        // <파일(F) 탭>
         /// 새로 만들기, 새 창, 열기, 저장, 다른 이름으로 저장
         /// 페이지 설정, 인쇄
         /// 끝내기
@@ -91,7 +93,8 @@ namespace NotePad
 
         private void 새창WToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            Form_memo newForm = new Form_memo();
+            newForm.Show();
         }
 
 
@@ -311,7 +314,7 @@ namespace NotePad
             }
             else //아래쪽 체크
             {
-                updown = str.LastIndexOf(findWord, this.txtNote.SelectionStart + this.txtNote.SelectionLength);
+                updown = str.IndexOf(findWord, this.txtNote.SelectionStart + this.txtNote.SelectionLength);
             }
 
             if (updown == -1)
@@ -337,7 +340,26 @@ namespace NotePad
 
         private void 이전찾기VToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(fWord)) return;
 
+            // Get the current selection start position
+            int currentSelectionStart = this.txtNote.SelectionStart;
+
+            // Calculate the startIndex to search for the text before the current selection
+            int startIndex = (currentSelectionStart > fWord.Length) ? currentSelectionStart - fWord.Length : 0;
+
+            // Perform the search
+            int index = this.txtNote.Text.LastIndexOf(fWord, startIndex, StringComparison.CurrentCultureIgnoreCase);
+
+            if (index != -1)
+            {
+                this.txtNote.Select(index, fWord.Length);
+                searchStartPosition = index;
+            }
+            else
+            {
+                MessageBox.Show("더 이전에 찾는 문자열이 없습니다.", "메모장", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void 바꾸기RToolStripMenuItem_Click(object sender, EventArgs e)
@@ -426,7 +448,8 @@ namespace NotePad
 
         private void 메모장정보AToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            help = new Form_help();
+            help.Show();
         }
 
             // <도움말(H) 탭> END
