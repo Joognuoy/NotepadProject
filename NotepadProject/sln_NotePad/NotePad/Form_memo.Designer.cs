@@ -75,9 +75,9 @@
             this.ofdFile = new System.Windows.Forms.OpenFileDialog();
             this.sfdFile = new System.Windows.Forms.SaveFileDialog();
             this.ssBar = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabelZoom = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelLine = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelColumn = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelZoom = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuBar.SuspendLayout();
             this.ssBar.SuspendLayout();
             this.SuspendLayout();
@@ -415,13 +415,13 @@
             // 
             // txtNote
             // 
-            this.txtNote.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtNote.Dock = System.Windows.Forms.DockStyle.Top;
             this.txtNote.Location = new System.Drawing.Point(0, 27);
             this.txtNote.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtNote.Multiline = true;
             this.txtNote.Name = "txtNote";
             this.txtNote.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtNote.Size = new System.Drawing.Size(784, 534);
+            this.txtNote.Size = new System.Drawing.Size(784, 510);
             this.txtNote.TabIndex = 1;
             this.txtNote.TextChanged += new System.EventHandler(this.txtNote_TextChanged);
             // 
@@ -447,12 +447,6 @@
             this.ssBar.TabIndex = 2;
             this.ssBar.Text = "statusStrip1";
             // 
-            // toolStripStatusLabelZoom
-            // 
-            this.toolStripStatusLabelZoom.Name = "toolStripStatusLabelZoom";
-            this.toolStripStatusLabelZoom.Size = new System.Drawing.Size(38, 17);
-            this.toolStripStatusLabelZoom.Text = "100%";
-            // 
             // toolStripStatusLabelLine
             // 
             this.toolStripStatusLabelLine.Name = "toolStripStatusLabelLine";
@@ -465,6 +459,12 @@
             this.toolStripStatusLabelColumn.Name = "toolStripStatusLabelColumn";
             this.toolStripStatusLabelColumn.Size = new System.Drawing.Size(36, 17);
             this.toolStripStatusLabelColumn.Text = "Col 1";
+            // 
+            // toolStripStatusLabelZoom
+            // 
+            this.toolStripStatusLabelZoom.Name = "toolStripStatusLabelZoom";
+            this.toolStripStatusLabelZoom.Size = new System.Drawing.Size(38, 17);
+            this.toolStripStatusLabelZoom.Text = "100%";
             // 
             // Form_memo
             // 

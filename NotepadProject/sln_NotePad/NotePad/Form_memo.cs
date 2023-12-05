@@ -46,13 +46,24 @@ namespace NotePad
             저장SToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.S;
             다른이름으로저장AToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Shift | Keys.S;
 
+            인쇄PToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.P;
+
             // 편집 메뉴
             실행취소UToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Z;
             잘라내기TToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.X;
             복사CToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.C;
             붙여넣기PToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.V;
             삭제LToolStripMenuItem.ShortcutKeys = Keys.Delete;
+
+            google로검색SToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.E;
+            찾기FToolStripMenuItem.ShortcutKeys= Keys.Control | Keys.F;
+            다음찾기NpToolStripMenuItem.ShortcutKeys = Keys.F3;
+            이전찾기VToolStripMenuItem.ShortcutKeys = Keys.Shift | Keys.F3;
+            바꾸기RToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.H;
+            이동GToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.G;
+
             모두선택AToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.A;
+            시간날짜DToolStripMenuItem.ShortcutKeys = Keys.F5;
 
             // 서식 메뉴
             자동줄바꿈WToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Shift | Keys.W;
