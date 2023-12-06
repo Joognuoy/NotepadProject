@@ -369,7 +369,22 @@ namespace NotePad
 
         private void 이전찾기VToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            if (string.IsNullOrEmpty(fWord))
+            {
+                // If fWord is null or empty, show the Form_find window to input the search word
+                using (Form_find formFind = new Form_find())
+                {
+                    if (formFind.ShowDialog() == DialogResult.OK)
+                    {
+                        fWord = formFind.GetSearchWord();
+                    }
+                    else
+                    {
+                        // User canceled the search
+                        return;
+                    }
+                }
+            }
             // Get the current selection start position
             int currentSelectionStart = this.txtNote.SelectionStart;
 
