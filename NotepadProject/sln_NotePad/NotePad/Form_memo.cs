@@ -21,7 +21,7 @@ namespace NotePad
 
     public partial class Form_memo : Form
     {
-        //전역 변수1
+        //전역 변수(디자인 함수)
         PrivateFontCollection privateFonts; //외부 폰트 적용을 위한 클래스
 
         private string fTitle = "제목 없음"; //폼 text에 들어갈 파일 제목
@@ -43,45 +43,7 @@ namespace NotePad
             this.Text = fTitle + fName;
         }
 
-        private void shortcut()
-        {
-            // 파일 메뉴
-            새로만들기NToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.N;
-            새창WToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.W;
-            열기OToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.O;
-            저장SToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.S;
-            다른이름으로저장AToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Shift | Keys.S;
-
-            인쇄PToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.P;
-
-            // 편집 메뉴
-            실행취소UToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Z;
-            잘라내기TToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.X;
-            복사CToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.C;
-            붙여넣기PToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.V;
-            삭제LToolStripMenuItem.ShortcutKeys = Keys.Delete;
-
-            google로검색SToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.E;
-            찾기FToolStripMenuItem.ShortcutKeys= Keys.Control | Keys.F;
-            다음찾기NpToolStripMenuItem.ShortcutKeys = Keys.F3;
-            이전찾기VToolStripMenuItem.ShortcutKeys = Keys.Shift | Keys.F3;
-            바꾸기RToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.H;
-            이동GToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.G;
-
-            모두선택AToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.A;
-            시간날짜DToolStripMenuItem.ShortcutKeys = Keys.F5;
-
-            // 서식 메뉴
-            자동줄바꿈WToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Shift | Keys.W;
-            글꼴FToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.F;
-
-            // 보기 메뉴
-            확대IToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Oemplus;
-            축소OToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.OemMinus;
-            확대하기축소하기기본값복원ToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.D0; // 0 키
-        }
-
-        //전역 변수2
+        //전역 변수(작동 함수)
         private string fWord; //찾기 문자열
         private string fWord_c; //바꾸기 폼에서 쓸 찾기 문자열
         private string cWord_c; //바꾸기 폼에서 쓸 바꾸기 문자열
@@ -919,7 +881,7 @@ namespace NotePad
 
 
         // <디자인 함수>
-        /// 꾸미기 적용: 아이콘, 외부 폰트, rgb 색상
+        /// 꾸미기 적용: 아이콘, 외부 폰트, rgb 색상, 상태 표시줄, 단축키
 
         private void setIcon() //아이콘 설정
         {
@@ -945,7 +907,6 @@ namespace NotePad
         {
             this.menuBar.BackColor = Color.FromArgb(155, 174, 200); //메뉴바 (연한 파란색)
             this.txtNote.BackColor = Color.FromArgb(217, 225, 232); //노트 (하늘색)
-            //this.ssBar.BackColor = Color.FromArgb(40, 44, 55); //상태 표시줄(남색)
         }
 
         private void Form_memo_Load(object sender, EventArgs e)
@@ -954,6 +915,45 @@ namespace NotePad
             Debug.WriteLine($"Initial Font Size: {initialFontSize}");
             UpdateStatusStrip();
         }
+
+        private void shortcut()
+        {
+            // 파일 메뉴
+            새로만들기NToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.N;
+            새창WToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.W;
+            열기OToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.O;
+            저장SToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.S;
+            다른이름으로저장AToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Shift | Keys.S;
+
+            인쇄PToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.P;
+
+            // 편집 메뉴
+            실행취소UToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Z;
+            잘라내기TToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.X;
+            복사CToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.C;
+            붙여넣기PToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.V;
+            삭제LToolStripMenuItem.ShortcutKeys = Keys.Delete;
+
+            google로검색SToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.E;
+            찾기FToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.F;
+            다음찾기NpToolStripMenuItem.ShortcutKeys = Keys.F3;
+            이전찾기VToolStripMenuItem.ShortcutKeys = Keys.Shift | Keys.F3;
+            바꾸기RToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.H;
+            이동GToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.G;
+
+            모두선택AToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.A;
+            시간날짜DToolStripMenuItem.ShortcutKeys = Keys.F5;
+
+            // 서식 메뉴
+            자동줄바꿈WToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Shift | Keys.W;
+            글꼴FToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.F;
+
+            // 보기 메뉴
+            확대IToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Oemplus;
+            축소OToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.OemMinus;
+            확대하기축소하기기본값복원ToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.D0; // 0 키
+        }
+
 
         // <디자인 함수> END
 
