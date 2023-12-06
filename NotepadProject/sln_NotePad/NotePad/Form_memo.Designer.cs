@@ -78,6 +78,9 @@
             this.toolStripStatusLabelLine = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelColumn = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelZoom = new System.Windows.Forms.ToolStripStatusLabel();
+            this.pageSet = new System.Windows.Forms.PageSetupDialog();
+            this.pDoc = new System.Drawing.Printing.PrintDocument();
+            this.printDlg = new System.Windows.Forms.PrintDialog();
             this.menuBar.SuspendLayout();
             this.ssBar.SuspendLayout();
             this.SuspendLayout();
@@ -465,6 +468,18 @@
             this.toolStripStatusLabelZoom.Name = "toolStripStatusLabelZoom";
             this.toolStripStatusLabelZoom.Size = new System.Drawing.Size(38, 17);
             this.toolStripStatusLabelZoom.Text = "100%";
+            // pageSet
+            // 
+            this.pageSet.Document = this.pDoc;
+            // 
+            // pDoc
+            // 
+            this.pDoc.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.pDoc_PrintPage);
+            // 
+            // printDlg
+            // 
+            this.printDlg.Document = this.pDoc;
+            this.printDlg.UseEXDialog = true;
             // 
             // Form_memo
             // 
@@ -543,6 +558,9 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelZoom;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelLine;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelColumn;
+        private System.Windows.Forms.PageSetupDialog pageSet;
+        private System.Drawing.Printing.PrintDocument pDoc;
+        private System.Windows.Forms.PrintDialog printDlg;
     }
 }
 

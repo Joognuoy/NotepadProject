@@ -34,8 +34,8 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.chOption = new System.Windows.Forms.CheckBox();
             this.groupBox = new System.Windows.Forms.GroupBox();
-            this.rdb_up = new System.Windows.Forms.RadioButton();
             this.rdb_down = new System.Windows.Forms.RadioButton();
+            this.rdb_up = new System.Windows.Forms.RadioButton();
             this.groupBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -59,20 +59,24 @@
             // 
             // btnOk
             // 
+            this.btnOk.FlatAppearance.BorderSize = 0;
+            this.btnOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOk.Font = new System.Drawing.Font("굴림", 10F);
-            this.btnOk.Location = new System.Drawing.Point(410, 25);
+            this.btnOk.Location = new System.Drawing.Point(410, 23);
             this.btnOk.Name = "btnOk";
-            this.btnOk.Size = new System.Drawing.Size(80, 23);
+            this.btnOk.Size = new System.Drawing.Size(80, 30);
             this.btnOk.TabIndex = 2;
             this.btnOk.Text = "다음 찾기";
             this.btnOk.UseVisualStyleBackColor = true;
             // 
             // btnCancel
             // 
+            this.btnCancel.FlatAppearance.BorderSize = 0;
+            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.Font = new System.Drawing.Font("굴림", 10F);
-            this.btnCancel.Location = new System.Drawing.Point(410, 100);
+            this.btnCancel.Location = new System.Drawing.Point(410, 96);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(80, 23);
+            this.btnCancel.Size = new System.Drawing.Size(80, 30);
             this.btnCancel.TabIndex = 3;
             this.btnCancel.Text = "취소";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -101,16 +105,6 @@
             this.groupBox.TabStop = false;
             this.groupBox.Text = "방향";
             // 
-            // rdb_up
-            // 
-            this.rdb_up.AutoSize = true;
-            this.rdb_up.Location = new System.Drawing.Point(32, 20);
-            this.rdb_up.Name = "rdb_up";
-            this.rdb_up.Size = new System.Drawing.Size(53, 18);
-            this.rdb_up.TabIndex = 0;
-            this.rdb_up.Text = "위쪽";
-            this.rdb_up.UseVisualStyleBackColor = true;
-            // 
             // rdb_down
             // 
             this.rdb_down.AutoSize = true;
@@ -122,6 +116,16 @@
             this.rdb_down.TabStop = true;
             this.rdb_down.Text = "아래쪽";
             this.rdb_down.UseVisualStyleBackColor = true;
+            // 
+            // rdb_up
+            // 
+            this.rdb_up.AutoSize = true;
+            this.rdb_up.Location = new System.Drawing.Point(32, 20);
+            this.rdb_up.Name = "rdb_up";
+            this.rdb_up.Size = new System.Drawing.Size(53, 18);
+            this.rdb_up.TabIndex = 0;
+            this.rdb_up.Text = "위쪽";
+            this.rdb_up.UseVisualStyleBackColor = true;
             // 
             // Form_find
             // 
