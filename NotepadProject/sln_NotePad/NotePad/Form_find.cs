@@ -26,8 +26,16 @@ namespace NotePad
             setBackColor();
         }
 
+
+
+        public string GetSearchWord()
+        {
+            return txtWord.Text; 
+        }
+
         private void txtWord_TextChanged(object sender, EventArgs e)
         {
+
             if (this.txtWord.Text == "")
             {
                 this.btnOk.Enabled = false; //버튼 비활성화 
@@ -74,6 +82,8 @@ namespace NotePad
             this.btnOk.BackColor = Color.FromArgb(155, 174, 200); //버튼 (연한 파란색)
             this.btnCancel.BackColor = Color.FromArgb(155, 174, 200); //버튼 (연한 파란색)
         }
+
+
 
         // <디자인 함수> END
     }

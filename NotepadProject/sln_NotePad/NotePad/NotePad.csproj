@@ -61,6 +61,12 @@
     <Compile Include="Form_find.Designer.cs">
       <DependentUpon>Form_find.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_help.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_help.Designer.cs">
+      <DependentUpon>Form_help.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_memo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,6 +86,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_find.resx">
       <DependentUpon>Form_find.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_help.resx">
+      <DependentUpon>Form_help.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_memo.resx">
       <DependentUpon>Form_memo.cs</DependentUpon>

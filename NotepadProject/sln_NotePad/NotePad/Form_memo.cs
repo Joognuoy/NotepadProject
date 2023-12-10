@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace NotePad
 {
 
@@ -53,6 +54,10 @@ namespace NotePad
         private Boolean allchangeIs = false; //'모두 바꾸기' 버튼 클릭 여부
 
         private Form_find frmF; //'찾기' 폼 생성
+        private Boolean findUpperIs = false; //찾기 폼 대소문자
+
+        private int searchStartPosition = 0;
+        private Form help;
 
         private int zoomPercentage = 100;
         private float initialFontSize;
@@ -62,6 +67,7 @@ namespace NotePad
 
         private Font printFont; //프린트 작업을 위한 폰트
         private Color printColor;
+
 
         // <파일(F) 탭>
         /// 새로 만들기, 새 창, 열기, 저장, 다른 이름으로 저장
@@ -126,7 +132,8 @@ namespace NotePad
 
         private void 새창WToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            Form_memo newForm = new Form_memo();
+            newForm.Show();
         }
 
 
@@ -403,6 +410,10 @@ namespace NotePad
             {
                 str = str.ToUpper(); //본문을 대문자로 변환
                 findWord = findWord.ToUpper(); //찾을 문자열 대문자로 변환
+                findUpperIs = true;
+            } else
+            {
+                findUpperIs = false;
             }
 
             if (frmF.rdb_up.Checked) //위쪽 체크
@@ -415,11 +426,11 @@ namespace NotePad
             else //아래쪽 체크
             {
                 updown = str.IndexOf(findWord, this.txtNote.SelectionStart + this.txtNote.SelectionLength); //index of -> 지정 위치부터 순서대로 체크(첫 단어 시작 위치 반환)
-
             }
 
             if (updown == -1)
             {
+                fWord = frmF.txtWord.Text; //못 찾았을 때도 전역 변수에 넣기
                 MessageBox.Show("더 이상 찾는 문자열이 없습니다.", "메모장", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -430,20 +441,73 @@ namespace NotePad
             this.txtNote.ScrollToCaret();
         }
 
+     
+
         private void 다음찾기NpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!(frmF == null || !frmF.Visible)) //form_find가 정상적으로 보인다면
+            if(fWord == null || fWord.Length == 0)
             {
-                frmF.txtWord.Text = this.fWord;
-                this.btnOk_Click(this, null);
+                this.찾기FToolStripMenuItem_Click(this, null); //fword 없으면 찾기 실행
+                return;
             }
+
+            var updown = -1;
+            var str = this.txtNote.Text; //본문 문자열
+            var findWord = fWord; //찾을 문자열
+
+            var realFindWord = fWord; //대소문자 체크 대비해서
+
+            if (findUpperIs == true) //대소문자 체크 x
+            {
+                str = str.ToUpper(); //본문을 대문자로 변환
+                findWord = findWord.ToUpper(); //찾을 문자열 대문자로 변환
+                
+            }
+            updown = str.IndexOf(findWord, this.txtNote.SelectionStart + this.txtNote.SelectionLength);
+
+            if (updown == -1)
+            {
+                fWord = realFindWord; //못 찾았을 때도 전역 변수에 넣기
+                MessageBox.Show("더 이상 찾는 문자열이 없습니다.", "메모장", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            this.txtNote.Select(updown, findWord.Length);
+            fWord = realFindWord;
+            this.txtNote.Focus();
+            this.txtNote.ScrollToCaret();
+
         }
 
         private void 이전찾기VToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(fWord))
+            {
+                this.찾기FToolStripMenuItem_Click(this, null); //fword 없으면 찾기 실행
+                return;
+            }
+            // Get the current selection start position
+            int currentSelectionStart = this.txtNote.SelectionStart;
 
+            // Calculate the startIndex to search for the text before the current selection
+            int startIndex = (currentSelectionStart > fWord.Length) ? currentSelectionStart - fWord.Length : 0;
+
+            // Perform the search
+            int index = this.txtNote.Text.LastIndexOf(fWord, startIndex, StringComparison.CurrentCultureIgnoreCase);
+
+            if (index != -1)
+            {
+                this.txtNote.Select(index, fWord.Length);
+                searchStartPosition = index;
+            }
+            else
+            {
+                MessageBox.Show("더 이전에 찾는 문자열이 없습니다.", "메모장", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
+
+        
         private void 바꾸기RToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!(frmC == null || !frmC.Visible)) //form_find가 정상적으로 보인다면
@@ -767,7 +831,6 @@ namespace NotePad
 
         private void 도움말보기HToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string search_str = this.txtNote.SelectedText.Replace(" ", "+");
             string target = "https://github.com/JooYeong-Lee/NotepadProject";
 
             try
@@ -786,7 +849,8 @@ namespace NotePad
 
         private void 메모장정보AToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            help = new Form_help();
+            help.Show();
         }
 
         // <도움말(H) 탭> END
