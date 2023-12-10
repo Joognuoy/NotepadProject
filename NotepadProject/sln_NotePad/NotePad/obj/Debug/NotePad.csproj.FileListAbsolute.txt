@@ -75,3 +75,4 @@ C:\Users\dydwn\OneDrive\바탕 화면\새 폴더\NotepadProject\NotepadProject\s
 C:\Users\dydwn\OneDrive\바탕 화면\새 폴더\NotepadProject\NotepadProject\sln_NotePad\NotePad\obj\Debug\NotePad.csproj.CoreCompileInputs.cache
 C:\Users\dydwn\OneDrive\바탕 화면\새 폴더\NotepadProject\NotepadProject\sln_NotePad\NotePad\obj\Debug\NotePad.exe
 C:\Users\dydwn\OneDrive\바탕 화면\새 폴더\NotepadProject\NotepadProject\sln_NotePad\NotePad\obj\Debug\NotePad.pdb
+C:\Users\YUHAN\Desktop\NotepadProject\NotepadProject\sln_NotePad\NotePad\obj\Debug\NotePad.Form_help.resources

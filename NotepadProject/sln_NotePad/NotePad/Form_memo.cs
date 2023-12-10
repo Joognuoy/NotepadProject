@@ -68,7 +68,6 @@ namespace NotePad
         private Font printFont; //프린트 작업을 위한 폰트
         private Color printColor;
 
-
         // <파일(F) 탭>
         /// 새로 만들기, 새 창, 열기, 저장, 다른 이름으로 저장
         /// 페이지 설정, 인쇄
@@ -607,6 +606,8 @@ namespace NotePad
 
             var changeWord = frmC.txt_change.Text; //바꿀 문자열
             var findWord = frmC.txt_find.Text; //찾을 문자열
+
+            this.txtNote.Select(0, 0); //커서 위치 정비
 
             do
             {
