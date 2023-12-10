@@ -800,6 +800,15 @@ namespace NotePad
         private void 상태표시줄SToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ssBar.Visible = 상태표시줄SToolStripMenuItem.Checked;
+
+            if (ssBar.Visible == false) //상태 표시줄 숨김
+            {
+                this.Height = this.Height - ssBar.Height; //form 높이 조절
+            }
+            else //상태 표시줄 표출
+            {
+                this.Height = this.Height + ssBar.Height; //form 높이 조절
+            }
         }
 
         private void UpdateLineAndColumn()
