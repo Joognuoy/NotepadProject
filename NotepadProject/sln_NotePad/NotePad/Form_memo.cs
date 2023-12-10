@@ -39,6 +39,8 @@ namespace NotePad
         private Boolean txtNoteChange; //내용 변경 체크
         private string fWord; //찾기 문자열
         private Form_find frmF; //'찾기' 폼 생성
+        private Boolean findUpperIs = false; //찾기 폼 대소문자
+
         private int searchStartPosition = 0;
         private Form help;
 
@@ -296,14 +298,6 @@ namespace NotePad
 
         private void btnOk_Click(object sender, EventArgs e) //찾기 폼의 ok 버튼 클릭 이벤트
         {
-
-            // Check if frmF is null and instantiate it if needed
-            if (frmF == null)
-            {
-                frmF = new Form_find();
-                frmF.btnOk.Click += new System.EventHandler(this.btnOk_Click);
-            }
-
             var updown = -1;
             var str = this.txtNote.Text; //본문 문자열
             var findWord = frmF.txtWord.Text; //찾을 문자열
@@ -312,6 +306,10 @@ namespace NotePad
             {
                 str = str.ToUpper(); //본문을 대문자로 변환
                 findWord = findWord.ToUpper(); //찾을 문자열 대문자로 변환
+                findUpperIs = true;
+            } else
+            {
+                findUpperIs = false;
             }
 
             if(frmF.rdb_up.Checked) //위쪽 체크
@@ -328,6 +326,7 @@ namespace NotePad
 
             if (updown == -1)
             {
+                fWord = frmF.txtWord.Text; //못 찾았을 때도 전역 변수에 넣기
                 MessageBox.Show("더 이상 찾는 문자열이 없습니다.", "메모장", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -342,48 +341,46 @@ namespace NotePad
 
         private void 다음찾기NpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!(frmF == null || !frmF.Visible)) // If form_find is visible
+            if(fWord == null || fWord.Length == 0)
             {
-                string searchWord = frmF.txtWord.Text;
-
-                // Get the current selection start position
-                int currentSelectionStart = this.txtNote.SelectionStart;
-
-                // Calculate the startIndex to search for the text after the current selection
-                int startIndex = (currentSelectionStart < this.txtNote.Text.Length) ? currentSelectionStart + 1 : this.txtNote.Text.Length;
-
-                // Perform the search
-                int index = this.txtNote.Text.IndexOf(searchWord, startIndex, StringComparison.CurrentCultureIgnoreCase);
-
-                if (index != -1)
-                {
-                    this.txtNote.Select(index, searchWord.Length);
-                    searchStartPosition = index;
-                }
-                else
-                {
-                    MessageBox.Show("더 다음에 찾는 문자열이 없습니다.", "메모장", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
+                this.찾기FToolStripMenuItem_Click(this, null); //fword 없으면 찾기 실행
+                return;
             }
+
+            var updown = -1;
+            var str = this.txtNote.Text; //본문 문자열
+            var findWord = fWord; //찾을 문자열
+
+            var realFindWord = fWord; //대소문자 체크 대비해서
+
+            if (findUpperIs == true) //대소문자 체크 x
+            {
+                str = str.ToUpper(); //본문을 대문자로 변환
+                findWord = findWord.ToUpper(); //찾을 문자열 대문자로 변환
+                
+            }
+            updown = str.IndexOf(findWord, this.txtNote.SelectionStart + this.txtNote.SelectionLength);
+
+            if (updown == -1)
+            {
+                fWord = realFindWord; //못 찾았을 때도 전역 변수에 넣기
+                MessageBox.Show("더 이상 찾는 문자열이 없습니다.", "메모장", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            this.txtNote.Select(updown, findWord.Length);
+            fWord = realFindWord;
+            this.txtNote.Focus();
+            this.txtNote.ScrollToCaret();
+
         }
 
         private void 이전찾기VToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(fWord))
             {
-                // If fWord is null or empty, show the Form_find window to input the search word
-                using (Form_find formFind = new Form_find())
-                {
-                    if (formFind.ShowDialog() == DialogResult.OK)
-                    {
-                        fWord = formFind.GetSearchWord();
-                    }
-                    else
-                    {
-                        // User canceled the search
-                        return;
-                    }
-                }
+                this.찾기FToolStripMenuItem_Click(this, null); //fword 없으면 찾기 실행
+                return;
             }
             // Get the current selection start position
             int currentSelectionStart = this.txtNote.SelectionStart;
