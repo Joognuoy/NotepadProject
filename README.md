@@ -1,4 +1,4 @@
-# NotePadProject
+![saveother](https://github.com/JooYeong-Lee/NotepadProject/assets/100755494/4b6367af-f678-448e-add0-74db20829dbe)# NotePadProject
 간단한 메모장 작성 프로그램(C#)
 <br>
 <br>
@@ -37,20 +37,36 @@ window에 기본으로 제공되는 메모장을 우리 힘으로 개발해보�
 ## 📌 주요 기능
 ### ① 파일(F)
 ####  ⓐ 새로 만들기
-   : 현재 작성하고 있던 메모를 폐기 혹은 저장하고 새 메모를 작성한다.
+![new](https://github.com/JooYeong-Lee/NotepadProject/assets/100755494/fe66342e-4c67-4a2d-851b-598ecef2a3b3)
+<br>
+   : 현재 작성하고 있던 메모를 폐기 혹은 저장하고 새 메모를 작성한다.
 ####  ⓑ 새 창
+![new2](https://github.com/JooYeong-Lee/NotepadProject/assets/100755494/39f063df-268d-4c91-8336-282f40b5ebb8)
+<br>
    : 현재 창 외에 다른 새로운 창을 생성한다.
 ####  ⓒ 열기
+![open](https://github.com/JooYeong-Lee/NotepadProject/assets/100755494/a8bc00a1-e989-4983-82c6-87c8ced670cf)
+<br>
    : 사용자가 가지고 있는 txt 파일 중 선택한 파일을 불러온다.
 ####  ⓓ 저장
+![save](https://github.com/JooYeong-Lee/NotepadProject/assets/100755494/2e5213e5-4a1d-4345-96bc-7e81e955bfb0)
+<br>
    : 작성하고 있던 메모를 저장한다.
 ####  ⓔ 다른 이름으로 저장
+![saveother](https://github.com/JooYeong-Lee/NotepadProject/assets/100755494/195ad2bb-e442-4963-9964-ac426ef3f6ec)
+<br>
    : 작성하고 있던 메모를 다른 이름으로 저장한다.
 ####  ⓕ 페이지 설정
+![setpage](https://github.com/JooYeong-Lee/NotepadProject/assets/100755494/bde3a486-1257-484a-99aa-d0d97c94098d)
+<br>
    : 인쇄할 때 페이지의 상태를 설정한다.
 ####  ⓖ 인쇄
+![print](https://github.com/JooYeong-Lee/NotepadProject/assets/100755494/ec2baa8d-1f8e-4993-b8c9-be1db9d63547)
+<br>
    : 페이지를 인쇄한다.
 ####  ⓗ 끝내기
+![exit](https://github.com/JooYeong-Lee/NotepadProject/assets/100755494/5c632b2f-50d2-4a03-9f42-54feea64a617)
+<br>
    : 창을 닫고, 닫기 전에 재확인 창을 생성한다.
 
 ### ② 편집(E)
