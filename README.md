@@ -1,4 +1,4 @@
-![saveother](https://github.com/JooYeong-Lee/NotepadProject/assets/100755494/4b6367af-f678-448e-add0-74db20829dbe)# NotePadProject
+# Notepad Project
 간단한 메모장 작성 프로그램(C#)
 <br>
 <br>
